@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    {% load static %}
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+</head>
+<body class="index-page">
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" class="navbar-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto ">
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'vehiculo' %}">Vehiculos</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'sucursal' %}">Sucursales</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="{% url 'socio' %}">Socios</a>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}" title="Iniciar Sesión">
+                        <img src="{% static 'images/login.svg' %}" alt="Iniciar Sesión">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}" title="Registrarse">
+                        <img src="{% static 'images/user-circle.svg' %}" alt="Registrarse">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Video Background Section -->
+    <div class="video-background">
+        <div class="video-foreground">
+            <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                <source src="{% static 'videos/video.webm' %}" type="video/webm">
+            </video>
+        </div>
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+        <div class="container h-100">
+            <div class="d-flex h-100 text-center align-items-center">
+                <div class="w-100 text-white">
+                    <h1 class="display-3">Bienvenidos</h1>
+                    <p class="lead mb-0" id="animatedText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional: Include the footer layout here -->
+    <footer class="bg-body text-center text-lg-start">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 1); color: white;">
+            © 2020 Zeonic Copyright:
+            <a class="text-white" href="https://mdbootstrap.com/" style="color: white;">MDBootstrap.com</a>
+            <br>
+            Sucursales:
+            <a class="text-white" href="{% url 'sucursal' %}" style="color: white;">Ver nuestras sucursales</a>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+</body>
+</html>
