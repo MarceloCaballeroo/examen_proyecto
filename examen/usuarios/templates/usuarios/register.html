@@ -4,41 +4,42 @@
 {% block title %}Crear una cuenta{% endblock %}
 
 {% block content %}
-    <div class="container d-flex align-items-center justify-content-center min-vh-100">
-        <div class="register-card p-5 shadow-lg">
-            <h1 class="display-4 mb-4 text-center">Crear una cuenta</h1>
-            <form id="register-form">
-                <div class="form-group">
-                    <label for="region">Región</label>
-                    <select class="form-control" id="region" required>
-                        <option value="" disabled selected>Selecciona la región</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="comuna">Comuna</label>
-                    <select class="form-control" id="comuna" required>
-                        <option value="" disabled selected>Selecciona la comuna</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="nombre">Nombre completo</label>
-                    <input type="text" class="form-control" id="nombre" required>
-                </div>
-                <div class="form-group">
-                    <label for="correo">Correo</label>
-                    <input type="email" class="form-control" id="correo" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="password" class="form-control" id="password" required>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="humano" required>
-                    <label class="form-check-label" for="humano">Soy humano</label>
-                </div>
-                <p>Al continuar, entiendo y acepto el <a href="#">Aviso de privacidad</a> y los <a href="#">Términos de uso</a>.</p>
-                <button type="submit" class="btn btn-primary btn-block">Siguiente</button>
-            </form>
-        </div>
+<div class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="register-card p-5 shadow-lg">
+        <h1 class="display-4 mb-4 text-center">Crear una cuenta</h1>
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="region">Región</label>
+                <select class="form-control" id="region" name="region" required>
+                    <option value="" disabled selected>Selecciona la región</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="comuna">Comuna</label>
+                <select class="form-control" id="comuna" name="comuna" required>
+                    <option value="" disabled selected>Selecciona la comuna</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="correo">Correo</label>
+                <input type="email" class="form-control" id="correo" name="correo" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="humano" required>
+                <label class="form-check-label" for="humano">Soy humano</label>
+            </div>
+            <p>Al continuar, entiendo y acepto el <a href="#">Aviso de privacidad</a> y los <a href="#">Términos de uso</a>.</p>
+            <button type="submit" class="btn btn-primary btn-block">Siguiente</button>
+        </form>
     </div>
+</div>
 {% endblock %}

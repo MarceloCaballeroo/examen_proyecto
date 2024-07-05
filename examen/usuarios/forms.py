@@ -1,29 +1,32 @@
+# usuarios/forms.py
+
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Usuarios, Region, Comuna
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import get_user_model
+from .models import Region, Comuna
 
-class UserForm(forms.ModelForm):
+class CustomUserCreationForm(UserCreationForm):
     class Meta:
-        model = Usuarios
-        fields = ['nombre', 'correo', 'password', 'region', 'comuna']
+        model = get_user_model()
+        fields = ('username', 'nombre', 'correo', 'password1', 'password2', 'region', 'comuna')
         widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
             'nombre': forms.TextInput(attrs={'class': 'form-control'}),
             'correo': forms.EmailInput(attrs={'class': 'form-control'}),
-            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
             'region': forms.Select(attrs={'class': 'form-control'}),
             'comuna': forms.Select(attrs={'class': 'form-control'}),
         }
         labels = {
+            'username': 'Nombre de Usuario',
             'nombre': 'Nombre Completo',
             'correo': 'Correo Electrónico',
-            'password': 'Contraseña',
-        }
-        help_texts = {
-            'password': 'Tu contraseña debe contener al menos 8 caracteres.',
+            'password1': 'Contraseña',
+            'password2': 'Confirmar Contraseña',
         }
 
     def __init__(self, *args, **kwargs):
-        super(UserForm, self).__init__(*args, **kwargs)
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
         self.fields['region'].queryset = Region.objects.all()
         self.fields['comuna'].queryset = Comuna.objects.none()
 
@@ -32,11 +35,11 @@ class UserForm(forms.ModelForm):
                 region_id = int(self.data.get('region'))
                 self.fields['comuna'].queryset = Comuna.objects.filter(region_id=region_id).order_by('nombre')
             except (ValueError, TypeError):
-                pass  # Manejo de excepción inválida o tipo incorrecto; el queryset vacío será usado
+                pass
 
     def clean_correo(self):
         correo = self.cleaned_data.get('correo')
-        if Usuarios.objects.filter(correo=correo).exists():
+        if get_user_model().objects.filter(correo=correo).exists():
             raise ValidationError("El correo electrónico ya está en uso.")
         return correo
 
@@ -45,7 +48,6 @@ class UserForm(forms.ModelForm):
         region = cleaned_data.get('region')
         comuna = cleaned_data.get('comuna')
 
-        # Asegúrate de que la comuna seleccionada pertenezca a la región seleccionada
         if comuna and comuna.region != region:
             self.add_error('comuna', "La comuna seleccionada no pertenece a la región indicada.")
 
