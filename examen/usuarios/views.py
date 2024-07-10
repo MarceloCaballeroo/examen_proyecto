@@ -1,7 +1,7 @@
 # usuarios/views.py
 
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -33,7 +33,7 @@ def register(request):
 
         user = authenticate(username=correo, password=password)
         auth_login(request, user)
-        return redirect('index')
+        return redirect('home')
 
     return render(request, 'usuarios/register.html')
 
@@ -43,7 +43,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             auth_login(request, user)
-            return redirect('index')
+            return redirect('home')
         else:
             return render(request, 'usuarios/login.html', {'form': form, 'error': 'Nombre de usuario o contraseña incorrectos'})
     else:
