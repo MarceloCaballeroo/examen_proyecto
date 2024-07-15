@@ -1,9 +1,13 @@
 # usuarios/views.py
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from .models import Profile
+from django.core.paginator import Paginator
+
 
 def register(request):
     if request.method == 'POST':
@@ -53,3 +57,60 @@ def login_view(request):
 def logout_view(request):
     auth_logout(request)
     return redirect('login')
+
+def profile_list(request):
+    profiles = Profile.objects.all()
+
+    # Filtro por nombre de usuario
+    nombre_filter = request.GET.get('nombre')
+    if nombre_filter:
+        profiles = profiles.filter(user__username__icontains=nombre_filter)
+
+    # Configuración de paginación
+    paginator = Paginator(profiles, 10)  # Mostrar 10 perfiles por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'profiles': page_obj,
+        'nombre_filter': nombre_filter,  # Para mantener el valor del filtro en el formulario
+    }
+    return render(request, 'usuarios/profile_list.html', context)
+
+@login_required
+def profile_detail(request, pk):
+    profile = get_object_or_404(Profile, pk=pk)
+    context = {
+        'profile': profile,
+    }
+    return render(request, 'usuarios/profile_detail.html', context)
+
+@login_required
+def profile_edit(request, pk):
+    profile = get_object_or_404(Profile, pk=pk)
+    if request.method == 'POST':
+        # Actualizar el perfil
+        profile.region = request.POST.get('region')
+        profile.comuna = request.POST.get('comuna')
+        profile.save()
+        return redirect('profile_list')
+    context = {
+        'profile': profile,
+    }
+    return render(request, 'usuarios/profile_edit.html', context)
+
+@login_required
+def profile_delete(request, pk):
+    profile = get_object_or_404(Profile, pk=pk)
+    if request.method == 'POST':
+        # Borrar el perfil
+        profile.user.delete()
+        return redirect('profile_list')
+    context = {
+        'profile': profile,
+    }
+    return render(request, 'usuarios/profile_delete.html', context)
+
+
+
+

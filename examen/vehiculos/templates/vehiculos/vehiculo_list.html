@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}CRUD Vehiculo{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 pt-5">
+        <h1 class="mb-4 text-center">Lista de Vehículos</h1>
+        
+        <!-- Formulario de Búsqueda -->
+        <form action="{% url 'vehiculo_list' %}" method="GET" class="mb-4">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Buscar por nombre..." value="{{ query }}">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+                </div>
+            </div>
+        </form>
+        
+        <a href="{% url 'vehiculo_add' %}" class="btn btn-primary mb-4">Crear nuevo vehículo</a>
+        
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Año</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for vehiculo in vehiculos %}
+                    <tr>
+                        <td>{{ vehiculo.nombre }}</td>
+                        <td>{{ vehiculo.tipo }}</td>
+                        <td>{{ vehiculo.modelo }}</td>
+                        <td>{{ vehiculo.ano }}</td>
+                        <td>${{ vehiculo.precion }}</td>
+                        <td>
+                            <a href="{% url 'vehiculo_edit' vehiculo.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                            <a href="{% url 'vehiculo_delete' vehiculo.pk %}" class="btn btn-danger btn-sm ml-1">Borrar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Paginación -->
+        <nav aria-label="Paginación">
+            <ul class="pagination justify-content-center">
+                {% if vehiculos.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1{% if query %}&q={{ query }}{% endif %}">&laquo; Primero</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ vehiculos.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">{{ vehiculos.previous_page_number }}</a>
+                    </li>
+                {% endif %}
+                
+                <li class="page-item active"><a class="page-link" href="?page={{ vehiculos.number }}{% if query %}&q={{ query }}{% endif %}">{{ vehiculos.number }}</a></li>
+                
+                {% if vehiculos.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ vehiculos.next_page_number }}{% if query %}&q={{ query }}{% endif %}">{{ vehiculos.next_page_number }}</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ vehiculos.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}">Último &raquo;</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+{% endblock %}

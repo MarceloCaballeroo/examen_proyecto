@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Formulario{% endblock %}
+
+
+{% block content %}
+    <div class="container mt-5 pt-5">
+        <h1 class="mb-4">{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Vehículo</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_nombre">Nombre:</label>
+                {{ form.nombre }}
+            </div>
+            <div class="form-group">
+                <label for="id_tipo">Tipo:</label>
+                {{ form.tipo }}
+            </div>
+            <div class="form-group">
+                <label for="id_modelo">Modelo:</label>
+                {{ form.modelo }}
+            </div>
+            <div class="form-group">
+                <label for="id_ano">Año:</label>
+                {{ form.ano }}
+            </div>
+            <div class="form-group">
+                <label for="id_precion">Precio:</label>
+                {{ form.precion }}
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+        <a href="{% url 'vehiculo_list' %}" class="btn btn-secondary mt-3">Volver a la lista</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/js/bootstrap.min.js"></script>
+    {% endblock %}

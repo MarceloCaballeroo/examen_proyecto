@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalles del Vehículo</title>
+</head>
+<body>
+    <h1>{{ vehiculo.nombre }}</h1>
+    <p>Tipo: {{ vehiculo.tipo }}</p>
+    <p>Modelo: {{ vehiculo.modelo }}</p>
+    <p>Año: {{ vehiculo.ano }}</p>
+    <p>Precio: {{ vehiculo.precion }}</p>
+    <a href="{% url 'vehiculo_edit' vehiculo.pk %}">Editar</a> -
+    <a href="{% url 'vehiculo_delete' vehiculo.pk %}">Borrar</a>
+    <a href="{% url 'vehiculo_list' %}">Volver a la lista</a>
+</body>
+</html>
