@@ -4,6 +4,7 @@
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
+    <!-- Video de fondo -->
     <div class="video-background">
         <div class="video-foreground">
             <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
@@ -13,12 +14,19 @@
         <div class="overlay"></div>
     </div>
 
+    <!-- Contenido de bienvenida con botones -->
     <div class="content">
         <div class="container h-100">
-            <div class="d-flex h-100 text-center align-items-center">
-                <div class="w-100 text-white">
+            <div class="d-flex flex-column h-100 text-center align-items-center justify-content-center">
+                <div class="w-100 text-white mb-5">
                     <h1 class="display-3">Bienvenidos</h1>
-                    <p class="lead mb-0" id="animatedText"></p>
+                    <p class="lead mb-4" id="animatedText"></p>
+                </div>
+                <div class="button-container mt-4">
+                    <button class="btn btn-light btn-lg mr-2">Ordenar</button>
+                    <a href="{% url 'quienes_somos' %}">
+                        <button class="btn btn-dark btn-lg mr-2">Más información</button>
+                    </a>
                 </div>
             </div>
         </div>
