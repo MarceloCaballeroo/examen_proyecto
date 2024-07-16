@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Vehiculo
 from .forms import VehiculoForm
+
+
 # Create your views here.
 def vehiculo_list(request):
     vehiculos_list = Vehiculo.objects.all()
