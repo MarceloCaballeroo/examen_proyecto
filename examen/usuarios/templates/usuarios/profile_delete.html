@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
-{% block title %}Confirmar Borrar Perfil{% endblock %}
+{% block title %}Eliminar Perfil{% endblock %}
 
 {% block content %}
 <div class="container mt-5 pt-5">
-    <h1 class="mb-4 text-center">¿Estás seguro de que deseas borrar el perfil de {{ profile.user.username }}?</h1>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger">Confirmar</button>
-        <a href="{% url 'profile_list' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+    <h1 class="display-4 text-center">Eliminar Perfil</h1>
+    <p class="text-center">¿Estás seguro de que deseas eliminar el perfil de {{ profile.user.username }}?</p>
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+                <a href="{% url 'profile_list' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

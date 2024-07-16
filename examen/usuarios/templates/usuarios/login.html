@@ -1,20 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load form_tags %}
 
 {% block title %}Iniciar Sesión{% endblock %}
 
 {% block content %}
-<div class="container d-flex align-items-center justify-content-center min-vh-100">
-    <div class="login-card p-5 shadow-lg">
-        <h1 class="display-4 mb-4 text-center">Iniciar Sesión</h1>
-        <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
-            {% if error %}
-            <div class="alert alert-danger mt-3">{{ error }}</div>
-            {% endif %}
-        </form>
+<div class="container mt-5 pt-5">
+    <h1 class="display-4 text-center">Login</h1>
+    <p class="text-center mb-5">Access your account to continue.</p>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg rounded">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                            {{ form.username|add_class:"form-control" }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                            {{ form.password|add_class:"form-control" }}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        {% if form.errors %}
+                            <div class="alert alert-danger mt-3">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

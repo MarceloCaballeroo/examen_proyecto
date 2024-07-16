@@ -21,7 +21,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'vehiculo' %}">Vehiculos</a>
+                            <a class="nav-link" href="{% url 'vehiculo' %}">Vehículos</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'sucursal' %}">Sucursales</a>
@@ -38,7 +38,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                                     {% if user.is_staff %}
-                                        <a class="dropdown-item" href="{% url 'admin:index' %}">Administración</a>
+                                        <a class="dropdown-item" href="{% url 'profile_list' %}">Administración</a>
                                     {% endif %}
                                     <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
                                 </div>
