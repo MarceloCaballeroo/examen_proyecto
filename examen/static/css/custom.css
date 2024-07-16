@@ -162,3 +162,16 @@ body.dark .footer {
     font-weight: bold;
     border-radius: 25px;
 }
+
+.carousel-item img {
+    height: 500px;
+    object-fit: cover;
+}
+
+.card {
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
