@@ -8,10 +8,9 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <p class="card-text"><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
-                    <p class="card-text"><strong>Modelo:</strong> {{ vehiculo.modelo }}</p>
-                    <p class="card-text"><strong>Año:</strong> {{ vehiculo.ano }}</p>
-                    <p class="card-text"><strong>Precio:</strong> {{ vehiculo.precion }}</p>
+                    <p class="card-text"><strong>Nombre:</strong> {{ vehiculo.nombre }}</p>
+                    <p class="card-text"><strong>Descripcion:</strong> {{ vehiculo.descripcion }}</p>
+                    <p class="card-text"><strong>Precio:</strong> {{ vehiculo.precio }}</p>
                     <div class="d-flex justify-content-between">
                         <a href="{% url 'vehiculo_edit' vehiculo.pk %}" class="btn btn-warning">Editar</a>
                         <a href="{% url 'vehiculo_delete' vehiculo.pk %}" class="btn btn-danger">Borrar</a>

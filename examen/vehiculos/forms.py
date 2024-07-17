@@ -1,7 +1,8 @@
 from django import forms
-from .models import Vehiculo
+from .models import Vehiculoo
+
 
 class VehiculoForm(forms.ModelForm):
     class Meta:
-        model = Vehiculo
-        fields = ['nombre', 'tipo', 'modelo', 'ano', 'precion']
+        model = Vehiculoo
+        fields = ['nombre', 'descripcion', 'precio', 'imagen']
