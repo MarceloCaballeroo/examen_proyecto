@@ -15,21 +15,18 @@
                 {{ form.nombre }}
             </div>
             <div class="form-group">
-                <label for="id_tipo">Tipo:</label>
-                {{ form.tipo }}
+                <label for="id_descripcion">Descripcion:</label>
+                {{ form.descripcion }}
             </div>
             <div class="form-group">
-                <label for="id_modelo">Modelo:</label>
-                {{ form.modelo }}
+                <label for="id_precio">Precio:</label>
+                {{ form.precio }}
             </div>
             <div class="form-group">
-                <label for="id_ano">Año:</label>
-                {{ form.ano }}
+                <label for="id_imagen">Imagen:</label>
+                {{ form.imagen }}
             </div>
-            <div class="form-group">
-                <label for="id_precion">Precio:</label>
-                {{ form.precion }}
-            </div>
+
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
         <a href="{% url 'vehiculo_list' %}" class="btn btn-secondary mt-3">Volver a la lista</a>

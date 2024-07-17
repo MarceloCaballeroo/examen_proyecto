@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Vehiculo
+
 from .forms import VehiculoForm
 
+from django.shortcuts import render
+from .models import Vehiculoo  # Asegúrate de importar el modelo correcto
 
-# Create your views here.
+
 def vehiculo_list(request):
-    vehiculos_list = Vehiculo.objects.all()
-
+    vehiculos_list = Vehiculoo.objects.all().order_by('nombre')  # Ordenar por nombre
+    
     # Filtrar por búsqueda
     query = request.GET.get('q')
     if query:
@@ -27,9 +29,6 @@ def vehiculo_list(request):
 
     return render(request, 'vehiculos/vehiculo_list.html', {'vehiculos': vehiculos, 'query': query})
 
-def vehiculo_detail(request, pk):
-    vehiculo = get_object_or_404(Vehiculo, pk=pk)
-    return render(request, 'vehiculos/vehiculo_detail.html', {'vehiculo': vehiculo})
 
 def vehiculo_add(request):
     if request.method == 'POST':
@@ -42,7 +41,7 @@ def vehiculo_add(request):
     return render(request, 'vehiculos/vehiculo_form.html', {'form': form})
 
 def vehiculo_edit(request, pk):
-    vehiculo = get_object_or_404(Vehiculo, pk=pk)
+    vehiculo = get_object_or_404(Vehiculoo, pk=pk)
     if request.method == 'POST':
         form = VehiculoForm(request.POST, instance=vehiculo)
         if form.is_valid():
@@ -53,7 +52,7 @@ def vehiculo_edit(request, pk):
     return render(request, 'vehiculos/vehiculo_form.html', {'form': form})
 
 def vehiculo_delete(request, pk):
-    vehiculo = get_object_or_404(Vehiculo, pk=pk)
+    vehiculo = get_object_or_404(Vehiculoo, pk=pk)
     if request.method == 'POST':
         vehiculo.delete()
         return redirect('vehiculo_list')
