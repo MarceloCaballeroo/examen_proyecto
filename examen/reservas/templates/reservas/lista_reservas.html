@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lista de Reservas{% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-5">
+    <h1 class="display-4 text-center">Lista de Reservas</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Nombre</th>
+                <th>Vehículo</th>
+                <th>Tipo de Pago</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in reservas %}
+            <tr>
+                <td>{{ reserva.email }}</td>
+                <td>{{ reserva.nombre }}</td>
+                <td>{{ reserva.vehiculo }}</td>
+                <td>{{ reserva.tipo_pago }}</td>
+                <td>
+                    <a href="{% url 'eliminar_reserva' reserva.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No hay reservas</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
