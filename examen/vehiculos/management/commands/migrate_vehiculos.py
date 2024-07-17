@@ -1,13 +1,12 @@
 import requests
 from django.core.management.base import BaseCommand
-from vehiculos.models import Vehiculoo  # Asegúrate de importar el modelo correcto
+from vehiculos.models import Vehiculoo
 
 class Command(BaseCommand):
     help = 'Migrate data from API to Vehiculoo model'
 
     def handle(self, *args, **kwargs):
-        # URL de tu API
-        api_url = "http://localhost:3000/api/vehiculos"  # Asegúrate de que esta URL sea la correcta
+        api_url = "http://localhost:3000/api/vehiculos"
         response = requests.get(api_url)
 
         if response.status_code == 200:
