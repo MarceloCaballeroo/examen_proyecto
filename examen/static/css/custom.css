@@ -80,21 +80,41 @@ body.dark .footer {
     border: none;
 }
 
-.footer {
-    background-color: rgb(255, 255, 255);
-    color: white;
-    padding: 20px 0;
-    margin-top: auto;
+/* custom.css */
+footer.bg-dark {
+    background-color: #000 !important; /* Cambia #000 por el color deseado */
+    color: #fff !important; /* Asegúrate de que el color de texto sea visible sobre el fondo */
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer .mb-3 {
+    margin-bottom: 1rem;
+}
+
+footer ul {
+    padding-left: 0;
+    list-style: none;
 }
 
 .video-background {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    z-index: -1;
 }
 
-.video-background .video-foreground {
+.video-foreground {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -103,7 +123,6 @@ body.dark .footer {
     transform: translate(-50%, -50%);
     overflow: hidden;
 }
-
 .video-background video {
     min-width: 100%;
     min-height: 100%;
@@ -176,6 +195,7 @@ body.dark .footer {
     transform: scale(1.05);
 }
 
+
 .table-bordered {
     border: 1px solid #dee2e6;
 }
@@ -201,3 +221,10 @@ body.dark .footer {
 .btn-warning .fas, .btn-danger .fas {
     margin-right: 0;
 }
+
+/* Eliminar padding de los contenedores */
+.container {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
