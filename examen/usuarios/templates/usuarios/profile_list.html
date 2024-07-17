@@ -12,8 +12,8 @@
                     <tr>
                         <th>Usuario</th>
                         <th>Email</th>
-                        <th>Región</th>
-                        <th>Comuna</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -22,8 +22,9 @@
                         <tr>
                             <td>{{ profile.user.username }}</td>
                             <td>{{ profile.user.email }}</td>
-                            <td>{{ profile.region }}</td>
-                            <td>{{ profile.comuna }}</td>
+                            <td>{{ profile.user.first_name }}</td>
+                            <td>{{ profile.user.last_name }}</td>
+                            
                             <td>
                                 <a href="{% url 'profile_edit' profile.pk %}" class="btn btn-warning btn-sm">Editar</a>
                                 <a href="{% url 'profile_delete' profile.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
