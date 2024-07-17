@@ -219,3 +219,10 @@ footer ul {
 .btn-warning .fas, .btn-danger .fas {
     margin-right: 0;
 }
+
+/* Eliminar padding de los contenedores */
+.container {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
