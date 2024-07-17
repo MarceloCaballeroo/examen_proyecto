@@ -17,7 +17,7 @@ def socio_view(request):
                 reserva.email = request.POST.get('email')
                 reserva.nombre = request.POST.get('nombre')
             reserva.save()
-            return redirect('reserva_lista')
+            return redirect('home')
     else:
         form = ReservaForm()
     return render(request, 'reservas/socio.html', {'form': form, 'user': request.user})
