@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import UserForm, UserEditForm
 from .models import UserProfile
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def register(request):
     if request.method == "POST":
@@ -46,8 +46,23 @@ def logout_view(request):
 
 @login_required
 def profile_list(request):
-    profiles = UserProfile.objects.all()
-    return render(request, 'usuarios/profile_list.html', {'profiles': profiles})
+    query = request.GET.get('q')
+    profiles_list = UserProfile.objects.all()
+    
+    if query:
+        profiles_list = profiles_list.filter(user__username__icontains=query)
+    
+    paginator = Paginator(profiles_list, 10)  # Muestra 10 perfiles por página
+    page = request.GET.get('page')
+    
+    try:
+        profiles = paginator.page(page)
+    except PageNotAnInteger:
+        profiles = paginator.page(1)
+    except EmptyPage:
+        profiles = paginator.page(paginator.num_pages)
+    
+    return render(request, 'usuarios/profile_list.html', {'profiles': profiles, 'query': query})
 
 @login_required
 def profile_add(request):
