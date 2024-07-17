@@ -7,21 +7,21 @@ const vehiculos = [
       nombre: 'Toyota Corolla',
       descripcion: 'Un vehículo compacto confiable y eficiente.',
       precio: 20000,
-      imagen: '/images/toyota.jpg'
+      imagen: 'https://raw.githubusercontent.com/bakemoNie/repuestos/main/toyota.jpg'
     },
     {
       id: 2,
       nombre: 'Honda Civic',
       descripcion: 'Un sedán deportivo con un diseño moderno.',
       precio: 22000,
-      imagen: '/images/honda.jpg'
+      imagen: 'https://github.com/bakemoNie/repuestos/raw/main/honda.jpg'
     },
     {
       id: 3,
       nombre: 'Ford Mustang',
       descripcion: 'Un icónico automóvil deportivo con un potente motor.',
       precio: 35000,
-      imagen: '/images/ford.jpg'
+      imagen: 'https://github.com/bakemoNie/repuestos/raw/main/ford.jpg'
     }
   ];
 
