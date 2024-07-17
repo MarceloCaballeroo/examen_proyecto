@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Vehículos{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 pt-5">
+        <h1 class="display-4 text-center">Vehículos</h1>
+        <div id="vehiculos-container" class="row">
+            {% for vehiculo in vehiculos %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{{ vehiculo.imagen }}" class="card-img-top" alt="{{ vehiculo.nombre }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ vehiculo.nombre }}</h5>
+                            <p class="card-text">{{ vehiculo.descripcion }}</p>
+                            <p class="card-text"><strong>Precio: </strong>${{ vehiculo.precio }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

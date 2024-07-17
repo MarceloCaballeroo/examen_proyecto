@@ -57,3 +57,7 @@ def vehiculo_delete(request, pk):
         vehiculo.delete()
         return redirect('vehiculo_list')
     return render(request, 'vehiculos/vehiculo_confirm_delete.html', {'vehiculo': vehiculo})
+
+def catalogo(request):
+    vehiculos = Vehiculoo.objects.all()
+    return render(request, 'vehiculos/catalogo.html', {'vehiculos': vehiculos})
