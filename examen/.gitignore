@@ -1,4 +1,9 @@
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
 __pycache__/
-*.py[cod]
-*$py.class
+local_settings.py
 db.sqlite3
+media
