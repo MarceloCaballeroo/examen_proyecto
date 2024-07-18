@@ -1,0 +1,45 @@
+<!-- checkout.html -->
+{% extends 'base.html' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+    <div class="container mt-5 pt-5">
+        <h1 class="display-4 text-center">Resumen de Compra</h1>
+        <div class="table-responsive mt-4">
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark-custom">
+                    <tr class="text-center">
+                        <th scope="col">Tus vehiculos</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio Unitario</th>
+                        <th scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if cart.items.exists %}
+                        {% for item in cart.items.all %}
+                        <tr class="text-center">
+                            <td>
+                                <img src="{{ item.vehiculo.imagen }}" alt="{{ item.vehiculo.nombre }}" style="max-width: 100px; max-height: 100px; display: block; margin-left: auto; margin-right: auto;">
+                                <p>{{ item.vehiculo.nombre }}</p>
+                            </td>
+                            <td>{{ item.quantity }}</td>
+                            <td>${{ item.vehiculo.precio }}</td>
+                            <td>${{ item.get_total_price }}</td>
+                        </tr>
+                        {% endfor %}
+                        <tr class="text-center">
+                            <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+                            <td>${{ cart.get_total }}</td>
+                        </tr>
+                    {% else %}
+                        <tr class="text-center">
+                            <td colspan="4" class="text-center">No hay artículos en el carrito.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

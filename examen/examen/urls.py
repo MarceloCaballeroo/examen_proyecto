@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from vehiculos import views 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -10,6 +11,8 @@ urlpatterns = [
     path('sucursal/', TemplateView.as_view(template_name="sucursal.html"), name='sucursal'),
     path('vehiculo/', TemplateView.as_view(template_name="vehiculo.html"), name='vehiculo'),
     path('carrito/', TemplateView.as_view(template_name="carrito.html"), name='carrito'),
+
     path('vehiculos/', include('vehiculos.urls')),
+
     path('reservas/', include('reservas.urls')),
 ]

@@ -1,10 +1,51 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 from .forms import VehiculoForm
+from .models import Vehiculoo, Cart, CartItem
 
-from django.shortcuts import render
-from .models import Vehiculoo  # Asegúrate de importar el modelo correcto
+def catalogo(request):
+    vehiculos = Vehiculoo.objects.all()
+    return render(request, 'vehiculos/catalogo.html', {'vehiculos': vehiculos})
+
+def cart_detail(request):
+    cart_id = request.session.get('cart_id')
+    if cart_id:
+        cart = get_object_or_404(Cart, id=cart_id)
+    else:
+        cart = None
+    return render(request, 'vehiculos/cart_detail.html', {'cart': cart})
+
+def add_to_cart(request, vehiculo_id):
+    vehiculo = get_object_or_404(Vehiculoo, pk=vehiculo_id)
+    
+    cart_id = request.session.get('cart_id')
+    if cart_id:
+        cart = get_object_or_404(Cart, pk=cart_id)
+    else:
+        cart = Cart.objects.create()
+        request.session['cart_id'] = cart.id
+    
+    cart.add(vehiculo=vehiculo)
+    
+    return redirect('cart_detail')
+
+def remove_from_cart(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    cart_item.delete()
+    return redirect('cart_detail')
+
+def update_cart_item(request, item_id):
+    cart_item = get_object_or_404(CartItem, pk=item_id)
+    
+    if request.method == 'POST':
+        quantity = int(request.POST.get('quantity', 1))
+        if quantity > 0:
+            cart_item.quantity = quantity
+            cart_item.save()
+    
+    return redirect('cart_detail')
+
+
 
 
 def vehiculo_list(request):
@@ -58,6 +99,28 @@ def vehiculo_delete(request, pk):
         return redirect('vehiculo_list')
     return render(request, 'vehiculos/vehiculo_confirm_delete.html', {'vehiculo': vehiculo})
 
-def catalogo(request):
-    vehiculos = Vehiculoo.objects.all()
-    return render(request, 'vehiculos/catalogo.html', {'vehiculos': vehiculos})
+def checkout(request):
+    cart = get_cart_or_create(request)  # Función para obtener el carrito actual del usuario
+
+    context = {
+        'cart': cart,
+    }
+    return render(request, 'vehiculos/checkout.html', context)
+
+def get_cart_or_create(request):
+
+    cart_id = request.session.get('cart_id')
+
+    if cart_id:
+        try:
+            cart = Cart.objects.get(pk=cart_id)
+        except Cart.DoesNotExist:
+
+            cart = Cart.objects.create()
+            request.session['cart_id'] = cart.id  # Actualiza el cart_id en la sesión
+    else:
+        cart = Cart.objects.create()
+        request.session['cart_id'] = cart.id  # Guarda el cart_id en la sesión
+
+    return cart
+

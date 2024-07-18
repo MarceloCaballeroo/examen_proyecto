@@ -1,12 +1,13 @@
+<!-- templates/vehiculos/catalogo.html -->
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Vehículos{% endblock %}
+{% block title %}Catálogo de Vehículos{% endblock %}
 
 {% block content %}
     <div class="container mt-5 pt-5">
-        <h1 class="display-4 text-center">Vehículos</h1>
-        <div id="vehiculos-container" class="row">
+        <h1 class="display-4 text-center">Catálogo de Vehículos</h1>
+        <div class="row">
             {% for vehiculo in vehiculos %}
                 <div class="col-md-4 mb-4">
                     <div class="card">
@@ -15,6 +16,7 @@
                             <h5 class="card-title">{{ vehiculo.nombre }}</h5>
                             <p class="card-text">{{ vehiculo.descripcion }}</p>
                             <p class="card-text"><strong>Precio: </strong>${{ vehiculo.precio }}</p>
+                            <a href="{% url 'add_to_cart' vehiculo.id %}" class="btn btn-primary">Agregar al carrito</a>
                         </div>
                     </div>
                 </div>
