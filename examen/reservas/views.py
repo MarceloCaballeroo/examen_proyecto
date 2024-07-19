@@ -3,6 +3,7 @@ from .forms import ReservaForm
 from .models import Reserva
 from django.contrib.auth.decorators import login_required
 
+
 @login_required
 def socio_view(request):
     if request.method == 'POST':

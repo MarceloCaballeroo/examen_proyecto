@@ -2,11 +2,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import VehiculoForm
 from .models import Vehiculoo, Cart, CartItem
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 
 def catalogo(request):
     vehiculos = Vehiculoo.objects.all()
     return render(request, 'vehiculos/catalogo.html', {'vehiculos': vehiculos})
-
+@login_required
 def cart_detail(request):
     cart_id = request.session.get('cart_id')
     if cart_id:
@@ -15,6 +17,8 @@ def cart_detail(request):
         cart = None
     return render(request, 'vehiculos/cart_detail.html', {'cart': cart})
 
+
+@login_required
 def add_to_cart(request, vehiculo_id):
     vehiculo = get_object_or_404(Vehiculoo, pk=vehiculo_id)
     
@@ -28,12 +32,12 @@ def add_to_cart(request, vehiculo_id):
     cart.add(vehiculo=vehiculo)
     
     return redirect('cart_detail')
-
+@login_required
 def remove_from_cart(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
     cart_item.delete()
     return redirect('cart_detail')
-
+@login_required
 def update_cart_item(request, item_id):
     cart_item = get_object_or_404(CartItem, pk=item_id)
     
@@ -47,7 +51,7 @@ def update_cart_item(request, item_id):
 
 
 
-
+@staff_member_required
 def vehiculo_list(request):
     vehiculos_list = Vehiculoo.objects.all().order_by('nombre')  # Ordenar por nombre
     
@@ -70,7 +74,7 @@ def vehiculo_list(request):
 
     return render(request, 'vehiculos/vehiculo_list.html', {'vehiculos': vehiculos, 'query': query})
 
-
+@staff_member_required
 def vehiculo_add(request):
     if request.method == 'POST':
         form = VehiculoForm(request.POST)
@@ -81,6 +85,7 @@ def vehiculo_add(request):
         form = VehiculoForm()
     return render(request, 'vehiculos/vehiculo_form.html', {'form': form})
 
+@staff_member_required
 def vehiculo_edit(request, pk):
     vehiculo = get_object_or_404(Vehiculoo, pk=pk)
     if request.method == 'POST':
@@ -91,7 +96,7 @@ def vehiculo_edit(request, pk):
     else:
         form = VehiculoForm(instance=vehiculo)
     return render(request, 'vehiculos/vehiculo_form.html', {'form': form})
-
+@staff_member_required
 def vehiculo_delete(request, pk):
     vehiculo = get_object_or_404(Vehiculoo, pk=pk)
     if request.method == 'POST':

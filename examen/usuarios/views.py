@@ -5,6 +5,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import UserForm, UserEditForm
 from .models import UserProfile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 def register(request):
     if request.method == "POST":
@@ -44,7 +46,7 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
-@login_required
+@staff_member_required
 def profile_list(request):
     query = request.GET.get('q')
     profiles_list = UserProfile.objects.all()
@@ -64,7 +66,7 @@ def profile_list(request):
     
     return render(request, 'usuarios/profile_list.html', {'profiles': profiles, 'query': query})
 
-@login_required
+@staff_member_required
 def profile_add(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST)
@@ -77,7 +79,7 @@ def profile_add(request):
         'user_form': user_form,
     })
 
-@login_required
+@staff_member_required
 def profile_edit(request, pk):
     profile = get_object_or_404(UserProfile, pk=pk)
     if request.method == 'POST':
@@ -91,7 +93,7 @@ def profile_edit(request, pk):
         'user_form': user_form,
     })
 
-@login_required
+@staff_member_required
 def profile_delete(request, pk):
     profile = get_object_or_404(UserProfile, pk=pk)
     if request.method == 'POST':
